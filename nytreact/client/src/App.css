@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -15,5 +15,13 @@
 
 .App-link {
   color: #61dafb;
-}
+} */
 
+
+.col-md-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  background: url(./images/news.jpg) no-repeat fixed center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}

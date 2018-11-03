@@ -1,18 +1,11 @@
 import React from "react";
-import "../Nav.css";
 
-const Nav = () => 
+const Nav = () => (
+  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a className="navbar-brand" href="/">
+      New York Times Articles
+    </a>
+  </nav>
+);
 
-<h1 className="title">{props.children}</h1>;
-    // return (
-    //     // <div>
-    //     //     <nav className="navbar fixed-top navbar-light bg-light">
-    //     //         <ul>
-    //     //             <li className="header">New York Times</li>
-    //     //          </ul>
-    //     //      </nav>
-    //     //  </div>
-    // )
-
-        
 export default Nav;

@@ -1,29 +1,23 @@
-import React, { Component } from 'react';
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import Nav from "./compenents/Nav";
+// 
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+import NoMatch from "./pages/NoMatch";
+import Nav from "./components/Nav";
 
-
-import './App.css';
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-        {/* //       render() {
-//         return (
-//             <div>
-//                 <Nav header={this.state.header} />
-               
-//             </div>
-//         );
-//     }
-// } */}
-          
-        </header>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div>
+      <Nav />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/Articles" component={Home} />
+        <Route exact path="/Articles/:id" component={Detail} />
+        <Route component={NoMatch} />
+      </Switch>
+    </div>
+  </Router>
+);
 
 export default App;
