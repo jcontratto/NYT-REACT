@@ -44,12 +44,16 @@ class Home extends Component {
     handleFormSubmit = event => {
       event.preventDefault();
       if (this.state.title && this.state.startdate && this.state.enddate) {
-        API.saveArticles({
-          title: this.state.title,
-          startdate: this.state.startdate,
-          enddate: this.state.enddate
+        API.searchArticles({
+          q: this.state.title,
+          start_date: this.state.startdate,
+          end_date: this.state.enddate
         })
-          .then(res => this.loadArticles())
+          .then(res => {
+            this.setState(
+              {articles: res.data}
+            )
+          })
           .catch(err => console.log(err));
       }
     };
@@ -72,13 +76,13 @@ class Home extends Component {
               <Input
                 value={this.state.startdate}
                 onChange={this.handleInputChange}
-                name="start-date"
+                name="startdate"
                 placeholder="Start Date (required)"
               />
               <Input
                 value={this.state.enddate}
                 onChange={this.handleInputChange}
-                name="end-date"
+                name="enddate"
                 placeholder="End Date (required)"
               />
               <FormButton
@@ -90,8 +94,11 @@ class Home extends Component {
             </form>
           </Col>
         </Row>
+        <div>
+        {this.state.articles.toString()}
+        </div>
       </Container>
-    );
+     );
   }
 }
 

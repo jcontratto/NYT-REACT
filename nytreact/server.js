@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 // const logger = require("morgan");
-const routes = require("./routes");
+const articles = require("./routes/article");
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -21,23 +21,11 @@ app.use(express.static("client/build"));
     app.use(express.static(__dirname + "/client/build"));
 }
 
-app.get("/api/hello", (req, res) => {
-    res.send( { express: "Helllllllo"});
-
-});
-
-// app.post("api/world", (req, res) => {
-//     console.log(req.body)
-//     res.send('I received your request')
-//     ${req.body.post}
-// );
-// )};
-
 // //Need to add API routes and view here
-// app.use(routes);
+app.use(articles);
 
 // //Once Heroku is added, put Heroku link here
-// mongoose.connect(process.env.MONGODB_URI || "mongodb:localhost/nytreact");
+// mongoose.connect("mongodb:localhost/nytreact");
 
 //Starting API server here
 app.listen(PORT, function() {
