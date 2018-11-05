@@ -34,29 +34,31 @@ class Home extends Component {
   //       .catch(err => console.log(err));
   //   };
 
-    handleInputChange = event => {
-      const { name, value } = event.target;
-      this.setState({
-        [name]: value
-      });
-    };
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-    handleFormSubmit = event => {
-      event.preventDefault();
-      if (this.state.title && this.state.startdate && this.state.enddate) {
-        API.searchArticles({
-          q: this.state.title,
-          start_date: this.state.startdate,
-          end_date: this.state.enddate
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.title && this.state.startdate && this.state.enddate) {
+      API.searchArticles({
+        q: this.state.title,
+        start_date: this.state.startdate,
+        end_date: this.state.enddate
+      })
+        .then(res => {
+
+          this.setState(
+            { articles: res.data }
+          )
+
         })
-          .then(res => {
-            this.setState(
-              {articles: res.data}
-            )
-          })
-          .catch(err => console.log(err));
-      }
-    };
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     return (
@@ -77,13 +79,13 @@ class Home extends Component {
                 value={this.state.startdate}
                 onChange={this.handleInputChange}
                 name="startdate"
-                placeholder="Start Date (required)"
+                placeholder="YYYYMMDD (required)"
               />
               <Input
                 value={this.state.enddate}
                 onChange={this.handleInputChange}
                 name="enddate"
-                placeholder="End Date (required)"
+                placeholder="YYYYMMDD (required)"
               />
               <FormButton
                 disabled={!(this.state.startdate && this.state.title)}
@@ -94,14 +96,19 @@ class Home extends Component {
             </form>
           </Col>
         </Row>
-        <div>
-        {this.state.articles.toString()}
+        <div className="card">
+          <div className="card-header">
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">Title</h5>
+            <p className="card-text">summary</p>
+            <a href="#" class="btn btn-primary">Save</a>
+            {JSON.stringify(this.state.articles)}
+          </div>
         </div>
       </Container>
-     );
+    );
   }
 }
 
 export default Home;
-
-

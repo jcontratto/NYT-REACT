@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
 //Title of the articles
+id: {
+    type: String,
+    required: true
+},
 title: { 
     type: String,
     required: true
@@ -22,6 +26,10 @@ date: {
 url: {
     type: String,
     required: true
+},
+saved: {
+    type: Boolean,
+    default: false
 }
 });
 
