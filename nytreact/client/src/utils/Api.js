@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default {
     searchArticles: function(searchObj) {
+    
         return axios.get("/nytarticles", {
             params: {
                 "q": searchObj.q,
@@ -10,5 +11,12 @@ export default {
                 "end_date": searchObj.end_date
             }
         })
-    } 
-}
+    },
+    
+    saveArticle: function(article) {
+        return axios.post("/articles", article)
+    }
+
+
+};
+

@@ -9,12 +9,17 @@ import { Input, TextArea, FormButton } from "../../components/Form";
 
 
 class Home extends Component {
-  state = {
-    articles: [],
-    title: "",
-    startdate: "",
-    enddate: ""
-  };
+  constructor() {
+    super();
+    this.state = {
+      articles: [],
+      item: {},
+      title: "",
+      startdate: "",
+      enddate: "",
+      savedArticles: []
+    };
+  }
 
   // componentDidMount() {
   //     this.loadArticles();
@@ -44,21 +49,38 @@ class Home extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.title && this.state.startdate && this.state.enddate) {
+
       API.searchArticles({
         q: this.state.title,
         start_date: this.state.startdate,
         end_date: this.state.enddate
       })
         .then(res => {
-
-          this.setState(
-            { articles: res.data }
-          )
+          this.setState({
+            articles: res.data
+          })
 
         })
         .catch(err => console.log(err));
     }
   };
+
+saveArticle = (articleData) => {
+  API.saveArticle(articleData).then(res => {
+    this.setState({
+      savedArticles: this.state.articles.concat([res.data])
+    })
+  })
+}
+
+checkForSaved = (article) => {
+  const articleIds = this.state.savedArticles.map((article) => {
+    return article.id
+  })
+  const isSaved = articleIds.indexOf(article.id) !== -1
+   return isSaved
+}
+
 
   render() {
     return (
@@ -96,16 +118,42 @@ class Home extends Component {
             </form>
           </Col>
         </Row>
-        <div className="card">
-          <div className="card-header">
-          </div>
-          <div className="card-body">
-            <h5 className="card-title">Title</h5>
-            <p className="card-text">summary</p>
-            <a href="#" class="btn btn-primary">Save</a>
-            {JSON.stringify(this.state.articles)}
-          </div>
-        </div>
+        {this.state.articles.map((article) => {
+
+          return (
+            <div className="card" key={article.id}>
+              <div className="card-header">
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">{article.title}</h5>
+                <p className="card-text">{article.summary}</p>
+                <p className="card-date">{article.date}</p>
+                <a target="_blank" href={article.url} className="card-url">{article.url}</a>
+                {!this.checkForSaved(article) && <div onClick={() => {this.saveArticle(article)}} className="btn btn-primary">Save</div>}
+              </div>
+            </div>
+          );
+        })}
+
+        <p>"This is saving"</p>
+
+        {this.state.savedArticles.map((article) => {
+
+return (
+  <div className="card" key={article.id}>
+    <div className="card-header">
+    </div>
+    <div className="card-body">
+      <h5 className="card-title">{article.title}</h5>
+      <p className="card-text">{article.summary}</p>
+      <p className="card-date">{article.date}</p>
+      <a target="_blank" href={article.url} className="card-url">{article.url}</a>
+      <a href="#" className="btn btn-primary">Save</a>
+    </div>
+  </div>
+);
+})}
+
       </Container>
     );
   }

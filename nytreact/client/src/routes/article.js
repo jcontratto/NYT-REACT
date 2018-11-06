@@ -4,11 +4,12 @@ const bodyParser = require("body-parser");
 const router = new express.Router();
 const app = express();
 const articlesController = require("../server/controllers/articlesController");
+const Articles = require("../server/models/Articles");
 
 
 
-router.get("/nytarticles", (req, res, next) => {
-    console.log("router.get working");
+router.get("/nytarticles", (req, res) => {
+    console.log("express is working");
     const q = req.query.q;
     const start_date = req.query.start_date;
     const end_date = req.query.end_date;
@@ -24,32 +25,32 @@ router.get("/nytarticles", (req, res, next) => {
         }
 
     }).then(articles => {
-        console.log("then");
+
         var articleArray = articles.data.response.docs
+        var list = []
 
         for (var i in articleArray) {
             var headline = articleArray[i]['headline'].main
             var snippet = articleArray[i].snippet
+            var date = articleArray[i].pub_date
             var url = articleArray[i].web_url
             var id = articleArray[i]['_id']
-            console.log(headline, " || ", snippet, " || ", url, "||", id);
+            var object = { "title": headline, "summary": snippet, "url": url, "id": id, "date": date }
+
+            list.push(object)
         }
+        console.log(list)
+        res.status(200).send(list);
 
-        res.status(200).send(headline + "||" + id + "||" + snippet + "||" + url)
-
-         console.log(headline, "||", snippet, "||", url)
-        // console.log("startres", articles.data.response.docs[3].source, "endres");
-        //  res.status(200).send(headline + " || " + snippet + " || " + url);
-
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send();
     })
-        .catch(err => {
-            console.log(err, "not working");
-            res.status(500).send();
-        })
-
-        next();
-
 
 });
+
+
+//Post to MongoDb
+router.post("/articles", articlesController.insertArticle) 
 
 exports = module.exports = router;

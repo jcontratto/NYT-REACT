@@ -27,10 +27,7 @@ url: {
     type: String,
     required: true
 },
-saved: {
-    type: Boolean,
-    default: false
-}
+
 });
 
 const Articles = mongoose.model("Articles", articleSchema);
