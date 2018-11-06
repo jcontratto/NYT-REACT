@@ -7,7 +7,6 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormButton } from "../../components/Form";
 
-
 class Home extends Component {
   constructor() {
     super();
@@ -65,22 +64,21 @@ class Home extends Component {
     }
   };
 
-saveArticle = (articleData) => {
-  API.saveArticle(articleData).then(res => {
-    this.setState({
-      savedArticles: this.state.articles.concat([res.data])
+  saveArticle = (articleData) => {
+    API.saveArticle(articleData).then(res => {
+      this.setState({
+        savedArticles: this.state.articles.concat([res.data])
+      })
     })
-  })
-}
+  }
 
-checkForSaved = (article) => {
-  const articleIds = this.state.savedArticles.map((article) => {
-    return article.id
-  })
-  const isSaved = articleIds.indexOf(article.id) !== -1
-   return isSaved
-}
-
+  checkForSaved = (article) => {
+    const articleIds = this.state.savedArticles.map((article) => {
+      return article.id
+    })
+    const isSaved = articleIds.indexOf(article.id) !== -1
+    return isSaved
+  }
 
   render() {
     return (
@@ -91,18 +89,21 @@ checkForSaved = (article) => {
               <h1>New York Times Article Search</h1>
             </Jumbotron>
             <form>
+              <h2>Search Article</h2>
               <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
                 placeholder="Title (required)"
               />
+              <h2>Enter Start Date</h2>
               <Input
                 value={this.state.startdate}
                 onChange={this.handleInputChange}
                 name="startdate"
                 placeholder="YYYYMMDD (required)"
               />
+              <h2>Enter End Date</h2>
               <Input
                 value={this.state.enddate}
                 onChange={this.handleInputChange}
@@ -129,31 +130,29 @@ checkForSaved = (article) => {
                 <p className="card-text">{article.summary}</p>
                 <p className="card-date">{article.date}</p>
                 <a target="_blank" href={article.url} className="card-url">{article.url}</a>
-                {!this.checkForSaved(article) && <div onClick={() => {this.saveArticle(article)}} className="btn btn-primary">Save</div>}
+                {!this.checkForSaved(article) && <div onClick={() => { this.saveArticle(article) }} className="btn btn-primary">Save</div>}
               </div>
             </div>
           );
         })}
 
-        <p>"This is saving"</p>
+        {/* <p>"This is saving"</p> */}
 
         {this.state.savedArticles.map((article) => {
-
-return (
-  <div className="card" key={article.id}>
-    <div className="card-header">
-    </div>
-    <div className="card-body">
-      <h5 className="card-title">{article.title}</h5>
-      <p className="card-text">{article.summary}</p>
-      <p className="card-date">{article.date}</p>
-      <a target="_blank" href={article.url} className="card-url">{article.url}</a>
-      <a href="#" className="btn btn-primary">Save</a>
-    </div>
-  </div>
-);
-})}
-
+          return (
+            <div className="card" key={article.id}>
+              <div className="card-header">
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">{article.title}</h5>
+                <p className="card-text">{article.summary}</p>
+                <p className="card-date">{article.date}</p>
+                <a target="_blank" href={article.url} className="card-url">{article.url}</a>
+                <a href="#" className="btn btn-primary">Save</a>
+              </div>
+            </div>
+          );
+        })}
       </Container>
     );
   }

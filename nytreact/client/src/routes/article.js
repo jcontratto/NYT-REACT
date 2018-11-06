@@ -6,8 +6,6 @@ const app = express();
 const articlesController = require("../server/controllers/articlesController");
 const Articles = require("../server/models/Articles");
 
-
-
 router.get("/nytarticles", (req, res) => {
     console.log("express is working");
     const q = req.query.q;
@@ -46,11 +44,9 @@ router.get("/nytarticles", (req, res) => {
         console.log(err);
         res.status(500).send();
     })
-
 });
 
-
 //Post to MongoDb
-router.post("/articles", articlesController.insertArticle) 
+router.post("/articles", articlesController.insertArticle)
 
 exports = module.exports = router;

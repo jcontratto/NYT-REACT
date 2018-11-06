@@ -2,8 +2,8 @@ import axios from "axios";
 //import router from "../routes/article";
 
 export default {
-    searchArticles: function(searchObj) {
-    
+    searchArticles: function (searchObj) {
+
         return axios.get("/nytarticles", {
             params: {
                 "q": searchObj.q,
@@ -12,8 +12,8 @@ export default {
             }
         })
     },
-    
-    saveArticle: function(article) {
+
+    saveArticle: function (article) {
         return axios.post("/articles", article)
     }
 
