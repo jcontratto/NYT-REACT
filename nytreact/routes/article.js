@@ -49,4 +49,4 @@ router.get("/nytarticles", (req, res) => {
 //Post to MongoDb
 router.post("/articles", articlesController.insertArticle)
 
-exports = module.exports = router;
+module.exports = router;

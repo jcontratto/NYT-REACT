@@ -3,14 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const logger = require("morgan");
-const articles = require("./client/src/routes/article");
+const articles = require("./routes/article");
 const app = express();
 const axios = require("axios");
 const PORT = process.env.PORT || 3002;
-var articlesController = require("./client/src/server/controllers/articlesController");
-var router = new express.Router();
-var db = require("./client/src/server/models");
-
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
 mongoose.connect(MONGODB_URI);
