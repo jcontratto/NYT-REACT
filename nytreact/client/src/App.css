@@ -16,18 +16,18 @@
 .App-link {
   color: #61dafb;
 }
-
+/* 
 .col-md-12 {
   flex: 0 0 100%;
   max-width: 100%;
   background-repeat: no-repeat;
   background-size: 100%;
-}
+} */
 
 .bg-primary {
   background-color: #213e5e!important;
 }
-
+/* 
 .h1 {
 font-size: 3rem;
 margin-bottom: .5rem;
@@ -35,7 +35,7 @@ font-family: fantasy;
 font-weight: 500;
 line-height: 1.2;
 color: inherit;
-}
+} */
 
 
 body {
@@ -48,3 +48,4 @@ body {
   text-align: left;
   background-color: #fff;
 }
+

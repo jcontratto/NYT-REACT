@@ -87,7 +87,7 @@ class Home extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>New York Times Article Search</h1>
+              {/* <h1>New York Times Article Search</h1> */}
             </Jumbotron>
             <form>
               <h2>Search Article</h2>
