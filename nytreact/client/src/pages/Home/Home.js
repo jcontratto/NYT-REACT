@@ -139,7 +139,7 @@ class Home extends Component {
 
         {/* <p>"This is saving"</p> */}
 
-        {this.state.savedArticles.map((article) => {
+        {/* {this.state.savedArticles.map((article) => {
           return (
             <div className="card" key={article.id}>
               <div className="card-header">
@@ -154,7 +154,7 @@ class Home extends Component {
               </div>
             </div>
           );
-        })}
+        })} */}
       </Container>
     );
   }
