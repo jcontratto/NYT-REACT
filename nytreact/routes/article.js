@@ -6,6 +6,9 @@ const app = express();
 const articlesController = require("../server/controllers/articlesController");
 const Articles = require("../server/models/Articles");
 
+router.get("/articles", articlesController.getArticles)
+router.delete("/articles/:id", articlesController.deleteArticles)
+
 router.get("/nytarticles", (req, res) => {
     console.log("express is working");
     const q = req.query.q;

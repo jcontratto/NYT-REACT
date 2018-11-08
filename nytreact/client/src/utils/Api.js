@@ -15,8 +15,15 @@ export default {
 
     saveArticle: function (article) {
         return axios.post("/articles", article)
-    }
+    },
 
+    getArticles: function () {
+        return axios.get("/articles")
+    },
+
+    deleteArticles: function(id) {
+        return axios.delete("/articles/" + id)
+    }
 
 };
 

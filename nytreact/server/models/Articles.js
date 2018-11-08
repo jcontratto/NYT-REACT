@@ -6,7 +6,9 @@ const articleSchema = new Schema({
 //Title of the articles
 id: {
     type: String,
-    required: true
+    required: true,
+    unique: true
+
 },
 title: { 
     type: String,

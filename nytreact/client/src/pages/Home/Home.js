@@ -20,23 +20,17 @@ class Home extends Component {
     };
   }
 
-  // componentDidMount() {
-  //     this.loadArticles();
-  // }
+  componentDidMount() {
+    this.loadSavedArticles();
+  }
 
-  // loadArticles = () => {
-  //     API.getArticles()
-  //         .then(res =>
-  //             this.setState({ articles: res.data, title: "", startdate: "", enddate: "" })
-  //         )
-  //         .cath(err => console.log(err));
-  // };
-
-  // deleteArticles = id => {
-  //     API.deleteArticles(id)
-  //       .then(res => this.loadArticles())
-  //       .catch(err => console.log(err));
-  //   };
+  loadSavedArticles = () => {
+    API.getArticles()
+      .then(res =>
+        this.setState({ savedArticles: res.data })
+      )
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -67,11 +61,17 @@ class Home extends Component {
   saveArticle = (articleData) => {
     API.saveArticle(articleData).then(res => {
       console.log(res.data)
-      this.setState({
-        savedArticles: this.state.articles.concat([res.data])
-      })
+      this.loadSavedArticles()
+      //   savedArticles: this.state.savedArticles.concat([res.data])
+      // })
     })
   }
+
+  deleteArticles = id => {
+    API.deleteArticles(id)
+      .then(res => this.loadSavedArticles())
+      .catch(err => console.log(err));
+  };
 
   checkForSaved = (article) => {
     const articleIds = this.state.savedArticles.map((article) => {
@@ -137,9 +137,7 @@ class Home extends Component {
           );
         })}
 
-        {/* <p>"This is saving"</p> */}
-
-        {/* {this.state.savedArticles.map((article) => {
+        {this.state.savedArticles.map((article) => {
           return (
             <div className="card" key={article.id}>
               <div className="card-header">
@@ -149,12 +147,11 @@ class Home extends Component {
                 <p className="card-text">{article.summary}</p>
                 <p className="card-date">{article.date}</p>
                 <a target="_blank" href={article.url} className="card-url">{article.url}</a>
-               
-                <a href="#" className="btn btn-primary">Save</a>
+                <div onClick={() => this.deleteArticles(article._id)} className="btn btn-danger">Delete</div>
               </div>
             </div>
           );
-        })} */}
+        })}
       </Container>
     );
   }
