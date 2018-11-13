@@ -11,7 +11,9 @@ When user gets to homepage, they will have to enter the article topic they would
 
 ## **Link to App**
 
+http://localhost:3002/
 
+https://rocky-river-58811.herokuapp.com/
 
 ## **Extras**
 
